@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project2-backend-deployment
+  namespace: Project2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    type: rollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+        - name: project2-backend-secret
+          secret:
+            secretName: backend-secret
+      containers:
+        - name: backend
+          image: wiings09/passop-k8s-backend:v1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  - name: backend-secret
+                    key: MONGO_URI
+          volumeMounts:
+            - name: project2-backend-secret
+              mountPath: /etc/secret
+              readOnly: true
+                  
