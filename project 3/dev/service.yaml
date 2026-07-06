@@ -6,7 +6,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: paytam
+    app: paytm
   ports:
     - protocol: TCP
       port: 80
