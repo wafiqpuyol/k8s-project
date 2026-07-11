@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paytm
+  template:
+    metadata:
+      labels:
+        app: paytm
+    spec:
+      containers:
+        - name: paytam-container
+          image: yaswanth111/paytam:latest
+          ports:
+            - containerPort: 80
+          resources:                     # Resource configuration for this container
+            requests:                 # Minimum guaranteed resources 
+              cpu: "100m"              # Request 0.1 CPU core
+              memory: "128Mi"          # Request 128 MB RAM ]
+            limits:                     # Maximum allowed resources 
+              cpu: "500m"              # Limit to 0.5 CPU core 
+              memory: "256Mi"          # Limit to 256 MB RAM 
