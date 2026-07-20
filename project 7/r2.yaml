@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: r2-deploy
+  namespace: proj-7
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: r2-app
+  template:
+    metadata:
+      labels:
+        app: r2-app
+    spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: r2-app
+      containers:
+      - name: python-http
+        image: python:alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            mkdir -p /r2-app && echo '<html>
+              <head><title>Route-2</title></head>
+              <body>
+                <h1>You are at Route-2</h1>
+              </body>
+            </html>' > /r2-app/index.html && cd / && python3 -m http.server 5678
+        ports:
+        - containerPort: 5678
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: r2-svc
+  namespace: proj-7
+  annotations:    
+    alb.ingress.kubernetes.io/healthcheck-path: /r1-app/index.html
+spec:
+  selector:
+    app: r2-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5678
