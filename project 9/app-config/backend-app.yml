@@ -8,11 +8,11 @@ spec:
   source:
     repoURL: https://github.com/wafiqpuyol/k8s-project/
     targetRevision: master
-    path: project\ 9/app-config
+    path: "project 9/app-config"
   destination:
     server: https://kubernetes.default.svc
-    namespace: app1-ns
+    namespace: project-9
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
+      selfHeal: true 
