@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: project-10-frontend-config
+  namespace: project-10
+data:
+  VITE_PORT: "6869"
