@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: project-10-backend-deploy
+  namespace: project-10
+  labels:
+    app: project-10-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: project-10-backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: project-10-backend
+    spec:
+      containers:
+        - name: project-10-backend
+          image: wafiqhossain/demo-app:v1.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: project-10-backend-config
+          ports:
+            - containerPort: 5500
