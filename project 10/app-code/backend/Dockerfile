@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
+ARG SERVER_PORT
+ENV SERVER_PORT=${SERVER_PORT}
+
 RUN npm install
 
 COPY . .
