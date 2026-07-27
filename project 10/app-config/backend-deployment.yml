@@ -22,10 +22,10 @@ spec:
     spec:
       containers:
         - name: project-10-backend
-          image: wafiqhossain/demo-app:v1.1
+          image: wafiqhossain/demo-app:v1.2
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
                 name: project-10-backend-config
           ports:
-            - containerPort: 5500
+            - containerPort: 6450

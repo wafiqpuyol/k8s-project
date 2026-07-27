@@ -4,4 +4,4 @@ metadata:
   name: project-10-backend-config
   namespace: project-10
 data:
-  SERVER_PORT: "5500"
+  SERVER_PORT: "6450"
