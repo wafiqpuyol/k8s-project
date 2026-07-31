@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: backend
+          image: wafiqhossain/branch_promotion_app:1989b9fdf47832ad596b082714b8146711c54eee
