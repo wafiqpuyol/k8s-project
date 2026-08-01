@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: project-11-rollout
+  labels:
+    app: canary-demo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: canary-demo
+  template:
+    metadata:
+      labels:
+        app: canary-demo
+    spec:
+      containers:
+      - name: canary-demo
+        image: wafiqhossain/demo-app:v1.0
+        imagePullPolicy: Always
+        # Tweak the following value to see canary deployment
+        env:
+          - name: NODE_ENV
+            value: dev
+        ports:
+        - name: http
+          containerPort: 3000
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause: {duration: "60s"}
+      - setWeight: 40
+      - pause: {duration: "120s"}
+      - setWeight: 60
+      - pause: {duration: "180s"}
+      - setWeight: 80
+      - pause: {duration: "240s"}
+      - setWeight: 100
