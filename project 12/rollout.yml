@@ -18,7 +18,7 @@ spec:
       - name: canary-demo
         image: wafiqhossain/demo-app:v1.0
         imagePullPolicy: Always
-        # Tweak the following value to see canary deployment
+        # Tweak the following value to see canary effect deployment
         env:
           - name: NODE_ENV
             value: dev
